@@ -1,0 +1,9 @@
+We are building an Agentic AI based app, an hotel booking agent that demonstrates the capabilities of how to develop a single agent using AWS Bedrock Agents.
+The steps to get up and running are:
+1. Create a hotel booking agent via the Agents feature within the AWS console with teh following settings:
+    - 1. a new service role
+    - 2. User Input in enabled
+    - 3. Memory is enabled
+    - 4. Disable multi agent capabilities
+    - 5. The remaining are all default settings
+2. Set up a bedrock kb in AWS containing info regarding Hilton's Room description and amenity details

@@ -54,6 +54,23 @@ resource "aws_iam_role_policy" "bedrock_agent_model_policy" {
   })
 }
 
+# IAM Policy for Bedrock Agent to retrieve from Knowledge Base
+resource "aws_iam_role_policy" "bedrock_agent_kb_policy" {
+  name = "vr-hotel-booking-agent-kb-policy"
+  role = aws_iam_role.bedrock_agent_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = "bedrock:Retrieve"
+        Resource = aws_bedrockagent_knowledge_base.hotel_kb.arn
+      }
+    ]
+  })
+}
+
 data "aws_caller_identity" "current" {}
 
 # Read instructions from file
@@ -73,6 +90,16 @@ resource "aws_bedrockagent_agent" "vr_hotel_booking_agent" {
     enabled_memory_types = ["SESSION_SUMMARY"]
     storage_days         = 30
   }
+}
+
+# Association between Agent and Knowledge Base
+resource "aws_bedrockagent_agent_knowledge_base_association" "agent_kb_association" {
+  agent_id          = aws_bedrockagent_agent.vr_hotel_booking_agent.id
+  agent_version     = "DRAFT"
+  knowledge_base_id = aws_bedrockagent_knowledge_base.hotel_kb.id
+  description       = "Association between hotel booking agent and hotel rooms guide KB"
+
+  knowledge_base_state = "ENABLED"
 }
 
 

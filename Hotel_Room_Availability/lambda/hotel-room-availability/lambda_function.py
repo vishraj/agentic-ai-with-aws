@@ -1,4 +1,4 @@
-import json, boto3
+import json, boto3, os
 
 client = boto3.client('dynamodb')
 
@@ -7,7 +7,7 @@ def lambda_handler(event, context):
     user_input_date = event['parameters'][0]['value']
 
     response = client.get_item(
-        TableName='hotelRoomAvailabilityTable',
+        TableName=os.environ.get('TABLE_NAME'),
         Key={
             'date': {'S': user_input_date}
         }

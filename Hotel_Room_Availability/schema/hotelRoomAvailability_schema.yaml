@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  title: Hotel Room Inventory API
+  version: 1.0.0
+  description: APIs for checking hotel room inventory
+paths:
+  /getRoomInventory/{date}:
+    get:
+      summary: Get a the hotel room inventory based on the date.
+      description: Returns the list of all room types and their availability.
+      operationId: getRoomInventory
+      parameters:
+        - name: date
+          in: path
+          description: Date for which the room inventory is required
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Room inventory details
+          content:
+            application/json:
+              schema:
+                type: Object
+                properties:
+                    gardenViewInventory:
+                      type: integer
+                      description: Number of rooms available in garden view
+                    seaViewInventory:
+                      type: integer
+                      description: Number of rooms available in sea view
+        

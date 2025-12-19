@@ -22,8 +22,8 @@ resource "aws_s3_bucket_versioning" "kb_bucket_versioning" {
 resource "aws_s3_object" "taj_aguada_pdf" {
   bucket = aws_s3_bucket.kb_bucket.id
   key    = "Taj-Fort-Aguada-Resort&Spa-Goa.pdf"
-  source = "${path.module}/rag/Taj-Fort-Aguada-Resort&Spa-Goa.pdf"
-  etag   = filemd5("${path.module}/rag/Taj-Fort-Aguada-Resort&Spa-Goa.pdf")
+  source = "${path.module}/../rag/Taj-Fort-Aguada-Resort&Spa-Goa.pdf"
+  etag   = filemd5("${path.module}/../rag/Taj-Fort-Aguada-Resort&Spa-Goa.pdf")
 }
 
 # OpenSearch Serverless Collection

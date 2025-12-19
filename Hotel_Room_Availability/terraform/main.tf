@@ -46,8 +46,8 @@ resource "aws_iam_role_policy" "bedrock_agent_model_policy" {
     Version = "2012-10-17"
     Statement = [
       {
-        Effect = "Allow"
-        Action = "bedrock:InvokeModel"
+        Effect   = "Allow"
+        Action   = "bedrock:InvokeModel"
         Resource = "arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-7-sonnet-20250219-v1:0"
       }
     ]
@@ -63,11 +63,11 @@ data "local_file" "agent_instructions" {
 
 # Bedrock Agent
 resource "aws_bedrockagent_agent" "vr_hotel_booking_agent" {
-  agent_name                  = "vr-hotel-booking-agent"
-  agent_resource_role_arn     = aws_iam_role.bedrock_agent_role.arn
-  foundation_model            = "anthropic.claude-3-7-sonnet-20250219-v1:0"
-  instruction                 = data.local_file.agent_instructions.content
-  
+  agent_name              = "vr-hotel-booking-agent"
+  agent_resource_role_arn = aws_iam_role.bedrock_agent_role.arn
+  foundation_model        = "anthropic.claude-3-7-sonnet-20250219-v1:0"
+  instruction             = data.local_file.agent_instructions.content
+
   # Memory configuration
   memory_configuration {
     enabled_memory_types = ["SESSION_SUMMARY"]
